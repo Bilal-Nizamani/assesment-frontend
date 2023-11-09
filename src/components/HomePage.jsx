@@ -10,8 +10,26 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [error, setError] = useState(null);
+  const [searchResult, setSearchResults] = useState([]);
   const isMounted = useRef(false);
   const counter = useRef(0);
+  const onSearch = (searchTerm) => {
+    if (searchTerm.length < 1) setSearchResults(cards);
+    const searchTermLower = searchTerm.toLowerCase();
+    const results = cards.filter((card) => {
+      return (
+        card?.name?.toLowerCase().includes(searchTermLower) ||
+        card?.type?.toLowerCase().includes(searchTermLower) ||
+        card?.set?.toLowerCase().includes(searchTermLower) ||
+        card?.artist?.toLowerCase().includes(searchTermLower) ||
+        card?.layout?.toLowerCase().includes(searchTermLower) ||
+        card?.flavor?.toLowerCase().includes(searchTermLower) ||
+        card?.text?.toLowerCase().includes(searchTermLower)
+      );
+    });
+
+    setSearchResults(results);
+  };
 
   useEffect(() => {
     if (isMounted.current === true && page === 1) return;
@@ -39,13 +57,17 @@ const HomePage = () => {
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
+
+  useEffect(() => {
+    setSearchResults(cards);
+  }, [cards]);
   return (
     <>
-      <SearchBar />
+      <SearchBar onSearch={onSearch} />
       <div className="container my-12 mx-auto px-4 md:px-12">
         <div className="flex flex-wrap -mx-1 lg:-mx-4">
-          {cards.length > 0 &&
-            cards.map((cardData) => (
+          {searchResult.length > 0 &&
+            searchResult.map((cardData) => (
               <Card key={cardData.id} cardData={cardData} />
             ))}
         </div>
