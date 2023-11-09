@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 const Card = ({ cardData }) => {
   const keys = [
@@ -11,6 +10,7 @@ const Card = ({ cardData }) => {
     "type",
     "originalType",
   ];
+
   return (
     <div className=" m-auto  sm:w-1/1 md:w-1/2 lg:w-1/3  xl:w-1/4 p-2">
       <div className="overflow-hidden  rounded-lg p-4 shadow-lg transition-transform transform hover:scale-105">
