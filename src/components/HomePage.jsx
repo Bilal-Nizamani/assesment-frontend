@@ -64,12 +64,15 @@ const HomePage = () => {
   return (
     <>
       <SearchBar onSearch={onSearch} />
-      <div className="container my-12 mx-auto px-4 md:px-12">
+      <div className=" my-12 mx-auto px-4 md:px-12">
         <div className="flex flex-wrap -mx-1 lg:-mx-4">
           {searchResult.length > 0 &&
-            searchResult.map((cardData) => (
-              <Card key={cardData.id} cardData={cardData} />
-            ))}
+            searchResult.map((cardData) => {
+              const price = Math.round(50 + Math.random() * (1000 - 50));
+              return (
+                <Card key={cardData.id} cardData={cardData} price={price} />
+              );
+            })}
         </div>
       </div>
       {error && <p className="text-red-500">{error}</p>}
