@@ -32,7 +32,8 @@ const Card = ({ cardData, price }) => {
         <div className=" h-[380px] cursor-pointer ">
           <Image
             alt={cardData.name}
-            fill
+            height={380}
+            width={100}
             className="block w-full object-cover"
             src={cardData.imageUrl || "/imgnotavailable.jpeg"}
             unoptimized
