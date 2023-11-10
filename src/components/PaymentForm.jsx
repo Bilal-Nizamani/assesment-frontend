@@ -2,6 +2,7 @@
 "use client";
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import Image from "next/image";
 import axios from "axios";
 
 export default function PaymentForm({ imageUrl, name, text, price }) {
@@ -55,7 +56,13 @@ export default function PaymentForm({ imageUrl, name, text, price }) {
     <div className="container max-w-[350px]">
       <main>
         <div className="shadow-lg border rounded p-2 ">
-          <img src={item.image} width={350} height={150} alt={item.name} />
+          <Image
+            src={item.image}
+            width={350}
+            height={150}
+            alt={item.name}
+            unoptimized // Add the unoptimized prop
+          />
           <h2 className="text-2xl">$ {item.price}</h2>
           <h3 className="text-xl">{item.name}</h3>
           <p className="text-gray-500">{item.description}</p>

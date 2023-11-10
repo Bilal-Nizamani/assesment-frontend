@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FullCard from "./FullCard";
+import Image from "next/image";
 
 const Card = ({ cardData, price }) => {
   const [fullCard, setFullCard] = useState(false);
@@ -29,11 +30,12 @@ const Card = ({ cardData, price }) => {
     >
       <div className="overflow-hidden  rounded-lg p-4 shadow-lg transition-transform transform hover:scale-105">
         <div className=" h-[380px] cursor-pointer ">
-          <img
+          <Image
             alt={cardData.name}
             fill
             className="block w-full object-cover"
             src={cardData.imageUrl || "/imgnotavailable.jpeg"}
+            unoptimized
           />
         </div>
         <h3>{cardData.name}</h3>
