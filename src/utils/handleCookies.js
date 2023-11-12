@@ -1,7 +1,10 @@
 import Cookies from "js-cookie";
 
 const setAuthToken = (token) => {
-  Cookies.set("jwtToken", token);
+  Cookies.set("jwtToken", token, {
+    expires: 25,
+  });
+  console.log("tokenSaved");
 };
 
 const getAuthToken = () => {

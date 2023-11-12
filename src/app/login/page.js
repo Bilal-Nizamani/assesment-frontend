@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import { setAuthToken } from "../../utils/handleCookies";
+import { useDispatch } from "react-redux";
+import { addUserData } from "@/redux/userDataSlice";
+import { getAuthToken } from "../../utils/handleCookies";
 
 import { useRouter } from "next/navigation";
 const loginHandler = async (data) => {
@@ -11,7 +14,6 @@ const loginHandler = async (data) => {
     const response = await axios.post("http://localhost:5000/login", data, {
       headers: { "Content-Type": "application/json" },
     });
-
     if (response.status === 200) {
       // Successful login
       return response;
@@ -25,6 +27,9 @@ const loginHandler = async (data) => {
 
 const Login = () => {
   const router = useRouter();
+  const token = getAuthToken();
+  if (token) router.push("/");
+  const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     username: "",
@@ -51,14 +56,15 @@ const Login = () => {
 
       // Perform registration logic (e.g., make an API request)
       let apiResponse = await loginHandler({ username, password });
+      console.log(apiResponse);
 
       if (!apiResponse.data.success) {
-        // alert(apiResponse.data.error);
         setError(apiResponse.data.error);
         setLoading(false);
         return;
       }
-      setAuthToken();
+      setAuthToken(apiResponse.data.token, apiResponse.data.expiresIn);
+      dispatch(addUserData({ ...apiResponse.data.user }));
       setFormData({ username: "", password: "", showPassword: false });
       router.push("/");
     } catch (err) {
@@ -89,6 +95,7 @@ const Login = () => {
             required
             onChange={handleChange}
             value={formData.username}
+            autoComplete="username"
           />
           <label htmlFor="password" className="block mt-4 text-sm font-medium ">
             Password (at least 8 characters):
@@ -102,6 +109,7 @@ const Login = () => {
             value={formData.password}
             required
             onChange={handleChange}
+            autoComplete="current-password"
           />
           <div className="flex items-center mt-2">
             <input

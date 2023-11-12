@@ -1,13 +1,18 @@
-// components/Navbar.js
 "use client";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
-
+import { removeAuthToken, getAuthToken } from "@/utils/handleCookies";
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const router = useRouter();
+  const token = getAuthToken();
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+  const handleLogout = () => {
+    removeAuthToken();
+    router.refresh();
   };
 
   return (
@@ -16,19 +21,31 @@ const Navbar = () => {
         <div className="text-white text-2xl font-bold cursor-pointer">
           <Link href="/">Logo</Link>
         </div>
-        <div className="hidden sm:flex space-x-4">
+        <div className="hidden sm:flex  items-center space-x-4">
           <Link href="/profile">
             <div className="text-white hover:text-gray-500">Profile</div>
           </Link>
           <Link href="/">
             <div className="text-white hover:text-gray-500">Home</div>
           </Link>
-          <Link href="/login">
-            <div className="text-white hover:text-gray-500">Login</div>
-          </Link>
-          <Link href="/sign-up">
-            <div className="text-white hover:text-gray-500">Sign-Up</div>
-          </Link>
+
+          {token ? (
+            <div
+              className="block cursor-pointer text-black p-2 rounded-full bg-white hover:text-red-500"
+              onClick={handleLogout}
+            >
+              Logout
+            </div>
+          ) : (
+            <>
+              <Link href="/login">
+                <div className="text-white hover:text-gray-500">Login</div>
+              </Link>
+              <Link href="/sign-up">
+                <div className="text-white hover:text-gray-500">Sign-Up</div>
+              </Link>
+            </>
+          )}
         </div>
         <div className="sm:hidden">
           <button
@@ -79,6 +96,7 @@ const Navbar = () => {
                   Sign-Up
                 </div>
               </Link>
+
               <Link href="/">
                 <div
                   className="block text-white hover:text-gray-500"

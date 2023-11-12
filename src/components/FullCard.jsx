@@ -40,12 +40,7 @@ const MagicCard = ({ card, price, openFullCard }) => {
         Close
       </div>
       <div className="">
-        <PaymentForm
-          price={price}
-          imageUrl={imageUrl}
-          name={name}
-          text={text}
-        />
+        <PaymentForm price={price} card={card} />
       </div>
 
       <div className="mb-4 basis-[60%]">

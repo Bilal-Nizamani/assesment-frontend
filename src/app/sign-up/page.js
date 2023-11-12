@@ -3,7 +3,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
+import { getAuthToken } from "@/utils/handleCookies";
 const register = async (data) => {
   try {
     const response = await axios.post("http://localhost:5000/register", data, {
@@ -22,6 +23,9 @@ const register = async (data) => {
 };
 
 const SignUp = () => {
+  const router = useRouter();
+  const token = getAuthToken();
+  if (token) redirect("/");
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -30,7 +34,7 @@ const SignUp = () => {
   });
   const [err, setErr] = useState(null);
   const [loading, setLoading] = useState(false); // Corrected variable name
-  const router = useRouter();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -119,6 +123,7 @@ const SignUp = () => {
             required
             onChange={handleChange}
             value={formData.username}
+            autoComplete="username"
           />
 
           <label htmlFor="email" className="block mt-4 text-sm font-medium ">
@@ -133,6 +138,7 @@ const SignUp = () => {
             pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
             required
             onChange={handleChange}
+            autoComplete="email"
           />
           <small className="text-gray-500">
             Only Gmail addresses are allowed.
@@ -182,6 +188,7 @@ const SignUp = () => {
           )}
         </form>
       </div>
+      <Footer />
     </>
   );
 };
