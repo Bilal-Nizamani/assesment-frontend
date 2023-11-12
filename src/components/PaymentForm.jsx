@@ -37,18 +37,22 @@ export default function PaymentForm({ imageUrl, name, text, price }) {
   const stripePromise = loadStripe(publishableKey);
   const createCheckOutSession = async () => {
     setLoading(true);
-    const stripe = await stripePromise;
-    const checkoutSession = await axios.post(
-      "http://localhost:5000/payment-checkout",
-      {
-        item: item,
+    try {
+      const stripe = await stripePromise;
+      const checkoutSession = await axios.post(
+        "http://localhost:5000/payment-checkout",
+        {
+          item: item,
+        }
+      );
+      const result = await stripe.redirectToCheckout({
+        sessionId: checkoutSession.data.id,
+      });
+      if (result.error) {
+        alert(result.error.message);
       }
-    );
-    const result = await stripe.redirectToCheckout({
-      sessionId: checkoutSession.data.id,
-    });
-    if (result.error) {
-      alert(result.error.message);
+    } catch (err) {
+      alert(err);
     }
     setLoading(false);
   };
