@@ -1,5 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+To make the Stripe integration work, you need to replace the placeholder publickkey with your actual publishable key in the publishableKey variable. Ensure you use your private key for security reasons.
 
+The application consists of a total of five pages:
+
+/login: Handles user login.
+/register: Manages user registration.
+/profile: Displays user information, including their username, email, and the cards they have purchased.
+/nofound: A page for handling scenarios where the requested page is not found.
+On the home page, users can buy cards if they are logged in. The Stripe integration ensures secure and seamless transactions. The profile page provides a personalized experience by showing the user's name, email, and the cards they have purchased.
+
+In summary, the application focuses on user authentication, registration, and a user-friendly profile page that keeps track of purchased cards. The Stripe payment system enhances the home page, allowing users to buy cards securely.
+
+in paymentform component
 ## Getting Started
 
 First, run the development server:
