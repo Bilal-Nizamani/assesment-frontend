@@ -7,9 +7,8 @@ import axios from "axios";
 import { getAuthToken } from "@/utils/handleCookies";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { useSelector } from "react-redux";
 
-export default function PaymentForm({ card, price }) {
+export default function PaymentForm({ card }) {
   const [loading, setLoading] = useState(false);
   const { imageUrl, text, name } = card;
   const [item, setItem] = useState({
@@ -17,11 +16,11 @@ export default function PaymentForm({ card, price }) {
     description: text,
     image: imageUrl,
     quantity: 0,
-    price: price,
+    price: card.price,
   });
-  const userId = useSelector((state) => state.userData._id);
 
   const token = getAuthToken();
+  const userId = localStorage.getItem("userId");
 
   const changeQuantity = (value) => {
     // Don't allow the quantity less than 0, if the quantity is greater than value entered by user then the user entered quantity is used, else 0
@@ -72,58 +71,63 @@ export default function PaymentForm({ card, price }) {
     setLoading(false);
   };
   return (
-    <div className="container max-w-[350px]">
+    <div className=" h-fit ">
       <main>
-        <div className="shadow-lg border rounded p-2 ">
-          <Image
-            src={item.image}
-            width={350}
-            height={150}
-            alt={item.name}
-            unoptimized // Add the unoptimized prop
-          />
-          <h2 className="text-2xl">$ {item.price}</h2>
-          <h3 className="text-xl">{item.name}</h3>
-          <p className="text-gray-500">{item.description}</p>
-          <p className="text-sm text-gray-600 mt-1">Quantity:</p>
-          <div className="border rounded">
-            <button
-              onClick={onQuantityMinus}
-              className="bg-blue-500 py-2 px-4 text-white rounded hover:bg-blue-600"
-            >
-              -
-            </button>
-            <input
-              type="number"
-              className="p-2"
-              onChange={onInputChange}
-              value={item.quantity}
+        <div className="shadow-lg sm:flex lg:block border rounded p-2 mb-[0rem] sm:mb-[20rem]">
+          <div className="flex basis-[40%]">
+            <Image
+              src={item.image}
+              width={350}
+              height={150}
+              alt={item.name}
+              unoptimized // Add the unoptimized prop
+              className=" w-[100%] object-contain max-h-[100%]  pb-4"
             />
-            <button
-              onClick={onQuantityPlus}
-              className="bg-blue-500 py-2 px-4 text-white rounded hover:bg-blue-600"
-            >
-              +
-            </button>
           </div>
-          <p>Total: ${item.quantity * item.price}</p>
-          {token ? (
-            <button
-              disabled={item.quantity === 0 || !item.quantity || loading}
-              onClick={() => {
-                token ? createCheckOutSession() : redirect("/login");
-              }}
-              className="bg-blue-500 hover:bg-blue-600 text-white block w-full py-2 rounded mt-2 disabled:cursor-not-allowed disabled:bg-blue-100"
-            >
-              {loading ? "Processing..." : "Buy"}
-            </button>
-          ) : (
-            <Link href="/login">
-              <div className="text-center bg-blue-500 hover:bg-blue-600 text-white block w-full py-2 rounded mt-2 disabled:cursor-not-allowed disabled:bg-blue-100">
-                Login to buy go to login
-              </div>
-            </Link>
-          )}
+          <div className="basis-[60%]">
+            <h2 className="text-2xl text-green-600">$ {item.price}</h2>
+            <h3 className="text-xl text-green-600">{item.name}</h3>
+            <p className="text-gray-500">{item.description}</p>
+            <p className="text-sm text-gray-300 mt-1">Quantity:</p>
+            <div className="border flex rounded">
+              <button
+                onClick={onQuantityMinus}
+                className="bg-red-700 basis-[20%] py-2 pr-2 text-white  hover:bg-red-600"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                className="py-2 w-full text-center basis-60%"
+                onChange={onInputChange}
+                value={item.quantity}
+              />
+              <button
+                onClick={onQuantityPlus}
+                className="bg-green-700 basis-[20%]  py-2 pr-2 w-full text-white  hover:bg-green-600"
+              >
+                +
+              </button>
+            </div>
+            <p className="text-white">Total: ${item.quantity * item.price}</p>
+            {token ? (
+              <button
+                disabled={item.quantity === 0 || !item.quantity || loading}
+                onClick={() => {
+                  token ? createCheckOutSession() : redirect("/login");
+                }}
+                className="bg-blue-500 hover:bg-blue-600 text-white block w-full py-2 rounded mt-2 disabled:cursor-not-allowed disabled:bg-blue-300"
+              >
+                {loading ? "Processing..." : "Buy"}
+              </button>
+            ) : (
+              <Link href="/login">
+                <div className="text-center bg-blue-500 hover:bg-blue-600 text-white block w-full py-2 rounded mt-2 disabled:cursor-not-allowed disabled:bg-blue-100">
+                  Login to buy go to login
+                </div>
+              </Link>
+            )}
+          </div>
         </div>
       </main>
     </div>

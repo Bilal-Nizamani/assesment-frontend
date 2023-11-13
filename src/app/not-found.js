@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-const notFound = () => {
+const NotFound = () => {
   return (
     <>
       <main class="grid h-[100vh] place-items-center bg-gray-900 text-white px-6 py-24 sm:py-32 lg:px-8">
@@ -25,4 +25,4 @@ const notFound = () => {
     </>
   );
 };
-export default notFound;
+export default NotFound;

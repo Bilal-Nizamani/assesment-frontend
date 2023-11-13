@@ -29,14 +29,14 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div className="flex w-[50%] justify-center m-auto items-center">
+    <div className="flex w-full md:w-[70%] lg:w-[60%]  justify-center m-auto items-center">
       <input
         type="text"
         placeholder="Search for cards..."
         onKeyDown={handleKeyDown}
         value={searchTerm}
         onChange={handleInputChange}
-        className="p-3 border rounded-l-full border-gray-300 flex-1 focus:outline-none focus:border-blue-500 transition-all duration-300"
+        className="p-3 border bg-gray-300 rounded-l-full border-gray-300 flex-1 focus:outline-none focus:border-blue-500 transition-all duration-300"
       />
       <button
         onClick={() => onSearch(searchTerm)}

@@ -4,10 +4,7 @@ import React, { useState } from "react";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import { setAuthToken } from "../../utils/handleCookies";
-import { useDispatch } from "react-redux";
-import { addUserData } from "@/redux/userDataSlice";
 import { getAuthToken } from "../../utils/handleCookies";
-
 import { useRouter } from "next/navigation";
 const loginHandler = async (data) => {
   try {
@@ -29,7 +26,6 @@ const Login = () => {
   const router = useRouter();
   const token = getAuthToken();
   if (token) router.push("/");
-  const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     username: "",
@@ -64,7 +60,11 @@ const Login = () => {
         return;
       }
       setAuthToken(apiResponse.data.token, apiResponse.data.expiresIn);
-      dispatch(addUserData({ ...apiResponse.data.user }));
+
+      localStorage.setItem("username", apiResponse.data.user.username);
+      localStorage.setItem("userId", apiResponse.data.user._id);
+      localStorage.setItem("email", apiResponse.data.user.email);
+
       setFormData({ username: "", password: "", showPassword: false });
       router.push("/");
     } catch (err) {
@@ -77,11 +77,11 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-lg mx-auto  p-8 rounded-md ">
-        <h1 className="text-4xl text-center pb-4 font-bold">Login</h1>
-        <div className="text-red-900 h-8 text-center pb-2 text-lg">
-          {error}{" "}
-        </div>
+      <div className="max-w-lg mx-auto  p-8 rounded-md tracking-wide  text-gray-300 ">
+        <h1 className="text-4xl text-center text-green-700 pb-4  tracking-widest font-bold">
+          LOGIN
+        </h1>
+        <div className="text-red-700 h-8 text-center pb-2 text-lg">{error}</div>
         <form onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="username" className="block text-sm font-medium ">
             Username (at least 5 characters):
@@ -97,7 +97,10 @@ const Login = () => {
             value={formData.username}
             autoComplete="username"
           />
-          <label htmlFor="password" className="block mt-4 text-sm font-medium ">
+          <label
+            htmlFor="password"
+            className="block  mt-4 text-sm font-medium "
+          >
             Password (at least 8 characters):
           </label>
           <input

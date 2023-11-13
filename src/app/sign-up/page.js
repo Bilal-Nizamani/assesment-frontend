@@ -107,9 +107,13 @@ const SignUp = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-lg mx-auto p-8 rounded-md ">
-        <h1 className="text-4xl text-center pb-4 font-bold">Sign Up</h1>
-        <div className="text-red-900 h-8 text-center pb-2 text-lg">{err}</div>
+      <div className="max-w-lg mx-auto p-8 rounded-md text-wide tracking-wide text-gray-300 ">
+        <h1 className="text-4xl text-center text-green-700 pb-4  tracking-widest font-bold">
+          SIGN UP
+        </h1>
+        <div className="text-red-700 min-h-8 text-center pb-2 text-lg">
+          {err}
+        </div>
         <form onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="username" className="block text-sm font-medium ">
             Username (at least 5 characters):
@@ -118,7 +122,7 @@ const SignUp = () => {
             type="text"
             id="username"
             name="username"
-            className="mt-1 p-2 border rounded-md w-full bg-gray-700 text-white"
+            className="mt-1 p-2 border rounded-md border-green-700 focus:outline-none  focus:border-green-500   w-full bg-gray-700 text-white"
             minLength="5"
             required
             onChange={handleChange}
@@ -134,7 +138,7 @@ const SignUp = () => {
             id="email"
             name="email"
             value={formData.email}
-            className="mt-1 p-2 border rounded-md w-full bg-gray-700 text-white"
+            className="mt-1 p-2 border border-green-700 focus:outline-none focus:border-green-500  rounded-md w-full bg-gray-700 text-white"
             pattern="[a-zA-Z0-9._%+-]+@gmail\.com$"
             required
             onChange={handleChange}
@@ -151,7 +155,7 @@ const SignUp = () => {
             type={formData.showPassword ? "text" : "password"}
             id="password"
             name="password"
-            className="mt-1 p-2 border rounded-md w-full bg-gray-700 text-white"
+            className="mt-1 p-2 border border-green-700 focus:outline-none  focus:border-green-500  rounded-md w-full bg-gray-700 text-white"
             minLength="8"
             value={formData.password}
             required
@@ -180,7 +184,7 @@ const SignUp = () => {
           ) : (
             <button
               type="button"
-              className="mt-6 p-3 w-full bg-gray-700 text-white rounded-md hover:bg-gray-500 focus:outline-none focus:ring focus:border-blue-300"
+              className="mt-6 p-3 w-full bg-gray-700 text-white rounded-md hover:bg-gray-500 focus:outline-none focus:ring focus:ring-green-600 focus:border-green-300"
               onClick={registerUser}
             >
               Register

@@ -1,8 +1,6 @@
-import { Inter } from "next/font/google";
+// import {} from "next/font/google";
 import "./globals.css";
-import ReduxProvider from "@/redux/ReduxProvider";
-
-const inter = Inter({ subsets: ["latin"] });
+// const robot = Roboto_Mono({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -12,9 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ReduxProvider>{children}</ReduxProvider>
-      </body>
+      <body className={"font-mono bg-black"}>{children}</body>
     </html>
   );
 }

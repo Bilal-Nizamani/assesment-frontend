@@ -16,22 +16,22 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4 px-10">
+    <nav className="bg-gray-800 text-gray-300 tracking-wider p-4 px-10">
       <div className=" mx-auto max-w-[1263px] flex justify-between items-center">
-        <div className="text-white text-2xl font-bold cursor-pointer">
-          <Link href="/">Logo</Link>
+        <div className=" text-2xl font-bold cursor-pointer">
+          <Link href="/">LOGO</Link>
         </div>
         <div className="hidden sm:flex  items-center space-x-4">
           <Link href="/profile">
-            <div className="text-white hover:text-gray-500">Profile</div>
+            <div className=" hover:text-green-600 ">PROFILE</div>
           </Link>
           <Link href="/">
-            <div className="text-white hover:text-gray-500">Home</div>
+            <div className=" hover:text-green-600 ">HOME</div>
           </Link>
 
           {token ? (
             <div
-              className="block cursor-pointer text-black p-2 rounded-full bg-white hover:text-red-500"
+              className="block cursor-pointer text-black p-2 rounded-full bg-gray-300 hover:bg-green-600 hover:text-gray-300"
               onClick={handleLogout}
             >
               Logout
@@ -39,15 +39,21 @@ const Navbar = () => {
           ) : (
             <>
               <Link href="/login">
-                <div className="text-white hover:text-gray-500">Login</div>
+                <div className=" hover:text-green-600 ">LOGIN</div>
               </Link>
               <Link href="/sign-up">
-                <div className="text-white hover:text-gray-500">Sign-Up</div>
+                <div className=" hover:text-green-600 ">SIGN-UP</div>
               </Link>
             </>
           )}
         </div>
-        <div className="sm:hidden">
+        <div className="sm:hidden flex">
+          <div
+            className="block cursor-pointer mr-5 text-black p-2 rounded-full bg-gray-300 hover:bg-green-600 hover:text-gray-300"
+            onClick={handleLogout}
+          >
+            Logout
+          </div>
           <button
             type="button"
             className="text-white focus:outline-none"
@@ -72,37 +78,33 @@ const Navbar = () => {
             <div className="absolute w-72 text-center top-16 right-4 bg-gray-800 p-4 ">
               <Link href="/about">
                 <div
-                  className="block text-white hover:text-gray-500 mb-2"
+                  className="block  hover:text-green-600 mb-2"
                   onClick={toggleMobileMenu}
                 >
-                  About
+                  ABOUT
                 </div>
               </Link>
               <Link href="/profile">
                 <div
-                  className="block text-white hover:text-gray-500 mb-2"
+                  className="block  hover:text-green-600 mb-2"
                   onClick={toggleMobileMenu}
                 >
-                  Profile
+                  PROFILE
                 </div>
               </Link>
               <Link href="/login">
-                <div className="block text-white hover:text-gray-500 mb-2">
-                  Login
-                </div>
+                <div className="block  hover:text-green-600 mb-2">LOGIN</div>
               </Link>
               <Link href="/sign-up">
-                <div className="block text-white hover:text-gray-500 mb-2">
-                  Sign-Up
-                </div>
+                <div className="block  hover:text-green-600 mb-2">SIGN-UP</div>
               </Link>
 
               <Link href="/">
                 <div
-                  className="block text-white hover:text-gray-500"
+                  className="block  hover:text-green-600"
                   onClick={toggleMobileMenu}
                 >
-                  Home
+                  HOME
                 </div>
               </Link>
             </div>
