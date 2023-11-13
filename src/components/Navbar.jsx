@@ -34,19 +34,22 @@ const Navbar = () => {
           <Link href="/">LOGO</Link>
         </div>
         <div className="hidden sm:flex  items-center space-x-4">
-          <Link href="/profile">
-            <div className=" hover:text-green-600 ">PROFILE</div>
-          </Link>
           <Link href="/">
             <div className=" hover:text-green-600 ">HOME</div>
           </Link>
 
           {token ? (
-            <div
-              className="block cursor-pointer text-black p-2 rounded-full bg-gray-300 hover:bg-green-600 hover:text-gray-300"
-              onClick={handleLogout}
-            >
-              Logout
+            <div>
+              {" "}
+              <Link href="/profile">
+                <div className=" hover:text-green-600 ">PROFILE</div>
+              </Link>
+              <div
+                className="block cursor-pointer text-black p-2 rounded-full bg-gray-300 hover:bg-green-600 hover:text-gray-300"
+                onClick={handleLogout}
+              >
+                Logout
+              </div>
             </div>
           ) : (
             <>

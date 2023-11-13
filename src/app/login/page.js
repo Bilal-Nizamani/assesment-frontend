@@ -48,10 +48,29 @@ const Login = () => {
     try {
       setLoading(true);
       const { username, password } = formData;
+      // Trim spaces from username
+      const trimmedUsername = username.trim();
+      // Chck username length
+      if (trimmedUsername.length < 5) {
+        setError("Username must be at least 5 characters long.");
+        setLoading(false);
+        return;
+      }
+      // Check for spaces in username
+      if (trimmedUsername.includes(" ")) {
+        setError("Username cannot contain spaces.");
+        setLoading(false);
+        return;
+      }
+      // Check password length
+      if (password.length < 8) {
+        setError("Password must be at least 8 characters long.");
+        setLoading(false);
+        return;
+      }
 
       // Perform registration logic (e.g., make an API request)
       let apiResponse = await loginHandler({ username, password });
-      console.log(apiResponse);
 
       if (!apiResponse.data.success) {
         setError(apiResponse.data.error);
@@ -81,7 +100,9 @@ const Login = () => {
         <h1 className="text-4xl text-center text-green-700 pb-4  tracking-widest font-bold">
           LOGIN
         </h1>
-        <div className="text-red-700 h-8 text-center pb-2 text-lg">{error}</div>
+        <div className="text-red-700 min-h-8 text-center pb-2 text-lg">
+          {error}
+        </div>
         <form onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="username" className="block text-sm font-medium ">
             Username (at least 5 characters):
@@ -90,7 +111,7 @@ const Login = () => {
             type="text"
             id="username"
             name="username"
-            className="mt-1 p-2 border rounded-md w-full bg-gray-700 text-white"
+            className="mt-1 p-2 border rounded-md border-green-700 focus:outline-none  focus:border-green-500   w-full bg-gray-700 text-white"
             minLength="5"
             required
             onChange={handleChange}
@@ -107,7 +128,7 @@ const Login = () => {
             type={formData.showPassword ? "text" : "password"}
             id="password"
             name="password"
-            className="mt-1 p-2 border rounded-md w-full bg-gray-700 text-white"
+            className="mt-1 p-2 border border-green-700 focus:outline-none  focus:border-green-500  rounded-md w-full bg-gray-700 text-white"
             minLength="8"
             value={formData.password}
             required
@@ -134,8 +155,8 @@ const Login = () => {
             </div>
           ) : (
             <button
-              type="button"
-              className={` mt-4 p-3 w-full bg-gray-700 text-white rounded-md hover:bg-gray-500 focus:outline-none focus:ring focus:border-blue-300 `}
+              type="sbumit"
+              className="mt-6 p-3 w-full bg-gray-700 text-white rounded-md hover:bg-gray-500 focus:outline-none focus:ring focus:ring-green-600 focus:border-green-300"
               onClick={loginUser}
             >
               Submit

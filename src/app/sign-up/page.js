@@ -65,6 +65,12 @@ const SignUp = () => {
       setLoading(false);
       return;
     }
+    // Check password length
+    if (password.length < 8) {
+      setErr("Password must be at least 8 characters long.");
+      setLoading(false);
+      return;
+    }
     // Validate Gmail address
     const isGmail = /[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email);
     if (!isGmail) {
@@ -73,12 +79,6 @@ const SignUp = () => {
       return;
     }
 
-    // Check password length
-    if (password.length < 8) {
-      setErr("Password must be at least 8 characters long.");
-      setLoading(false);
-      return;
-    }
     // Perform registration logic (e.g., make an API request)
     try {
       const apiResponse = await register({
