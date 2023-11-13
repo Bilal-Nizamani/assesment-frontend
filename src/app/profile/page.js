@@ -53,7 +53,7 @@ const MyProfile = () => {
       <Navbar />
       {loading ? (
         // Show a loading indicator while data is being fetched
-        <div>Loading...</div>
+        <div className="h-[100vh] w-full">Loading...</div>
       ) : user ? (
         // Render the Profile component if user data is available
         <Profile user={user} />

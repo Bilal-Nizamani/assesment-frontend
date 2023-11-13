@@ -1,19 +1,31 @@
+// Navbar.js
+
 "use client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { removeAuthToken, getAuthToken } from "@/utils/handleCookies";
+
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
   const router = useRouter();
   const token = getAuthToken();
+
+  useEffect(() => {
+    setShouldRender(true);
+  }, []);
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
   const handleLogout = () => {
     removeAuthToken();
     router.refresh();
   };
+
+  if (!shouldRender) return null; // Render nothing on the server side
 
   return (
     <nav className="bg-gray-800 text-gray-300 tracking-wider p-4 px-10">

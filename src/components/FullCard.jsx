@@ -1,7 +1,7 @@
 import React from "react";
 import PaymentForm from "./PaymentForm";
 import Image from "next/image";
-const MagicCard = ({ card, openFullCard, isMyCard }) => {
+const FullCard = ({ card, openFullCard, isMyCard }) => {
   const {
     name,
     names,
@@ -180,4 +180,4 @@ const MagicCard = ({ card, openFullCard, isMyCard }) => {
   );
 };
 
-export default MagicCard;
+export default FullCard;

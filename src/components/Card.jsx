@@ -4,16 +4,7 @@ import Image from "next/image";
 
 const Card = ({ cardData, isMyCard }) => {
   const [fullCard, setFullCard] = useState(false);
-  const keys = [
-    "number",
-    "artist",
-    // "layout",
-    "flavor",
-    // "set",
-    "type",
-    // "originalType",
-    "price",
-  ];
+  const keys = ["number", "artist", "flavor", "type", "price"];
   const openFullCard = () => {
     setFullCard((prev) => {
       return !prev;

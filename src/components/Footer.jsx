@@ -16,7 +16,7 @@ const Footer = () => {
             </li>
             <li>
               <Link href="/profile">
-                <lispan className="hover:text-green-600">Profile</lispan>
+                <span className="hover:text-green-600">Profile</span>
               </Link>
             </li>
             <li>

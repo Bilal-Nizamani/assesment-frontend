@@ -25,7 +25,6 @@ const loginHandler = async (data) => {
 const Login = () => {
   const router = useRouter();
   const token = getAuthToken();
-  if (token) router.push("/");
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     username: "",
@@ -73,6 +72,7 @@ const Login = () => {
       setLoading(false);
     }
   };
+  if (token) router.push("/");
 
   return (
     <>
